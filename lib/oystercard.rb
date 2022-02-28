@@ -16,16 +16,16 @@ class Oystercard
         @balance -= amt_to_deduct
     end
 
-    def touch_in
-        touch_in = true
+    def touch_in(condition = "yes")
+        condition == "yes"
     end
 
-    def touch_out
-        touch_out = true
+    def touch_out(condition = "no")
+        condition == "no"
     end
 
     def in_journey?
-        return true if touch_in == true && touch_out == false
+        touch_in == true && touch_out == true
     end
 
     def maximum_balance?(top_up_amt)
