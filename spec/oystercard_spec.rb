@@ -16,5 +16,10 @@ describe Oystercard do
         expect { oystercard.top_up(81) }.to raise_error "Maximum balance exceeded by 1"
     end
 
+    it 'deducts the money from the balance' do
+        oystercard = Oystercard.new
+        expect(oystercard.deduct(2)).to eq 8
+    end
+
 
 end
