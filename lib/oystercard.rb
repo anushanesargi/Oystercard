@@ -17,7 +17,11 @@ class Oystercard
     end
 
     def touch_in
-        true
+        touch_in = true
+    end
+
+    def touch_out
+        touch_out = true
     end
 
     def maximum_balance?(top_up_amt)

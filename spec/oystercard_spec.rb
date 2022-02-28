@@ -25,5 +25,10 @@ describe Oystercard do
         oystercard = Oystercard.new
         expect(oystercard.touch_in).to eq true
     end
-    
+
+    it 'returns true if touched out' do
+        oystercard = Oystercard.new
+        expect(oystercard.touch_out).to eq true
+    end
+
 end
