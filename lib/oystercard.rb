@@ -16,6 +16,10 @@ class Oystercard
         @balance -= amt_to_deduct
     end
 
+    def touch_in
+        true
+    end
+
     def maximum_balance?(top_up_amt)
         if @balance + top_up_amt > MAX_BAL
             fail "Maximum balance exceeded by #{(MAX_BAL - @balance - top_up_amt).abs}"
