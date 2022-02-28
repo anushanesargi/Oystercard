@@ -2,7 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
     it 'has a balance of ten' do
-        expect(subject.balance).to eq 10
+        oystercard = Oystercard.new
+        expect(oystercard.balance).to eq 10
     end
-    
+
 end
