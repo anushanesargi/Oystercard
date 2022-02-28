@@ -13,7 +13,9 @@ class Oystercard
     end
 
     def maximum_balance?(top_up_amt)
-        fail "Maximum balance exceeded" if @balance + top_up_amt > MAX_BAL
+        if @balance + top_up_amt > MAX_BAL
+            fail "Maximum balance exceeded by #{(MAX_BAL - @balance - top_up_amt).abs}"
+        end
     end
 
 

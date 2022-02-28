@@ -13,7 +13,7 @@ describe Oystercard do
 
     it 'raise an error when the maximum balance is exceeded, max_bal = 90' do
         oystercard = Oystercard.new
-        expect { oystercard.top_up(81) }.to raise_error "Maximum balance exceeded"
+        expect { oystercard.top_up(81) }.to raise_error "Maximum balance exceeded by 1"
     end
 
 
