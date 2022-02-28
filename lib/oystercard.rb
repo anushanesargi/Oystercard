@@ -24,6 +24,10 @@ class Oystercard
         touch_out = true
     end
 
+    def in_journey?
+        return true if touch_in == true && touch_out == false
+    end
+
     def maximum_balance?(top_up_amt)
         if @balance + top_up_amt > MAX_BAL
             fail "Maximum balance exceeded by #{(MAX_BAL - @balance - top_up_amt).abs}"

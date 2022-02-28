@@ -31,4 +31,10 @@ describe Oystercard do
         expect(oystercard.touch_out).to eq true
     end
 
+    it 'returns true if in journey' do
+        oystercard = Oystercard.new
+        allow(oystercard).to receive(:touch_in).and_return true
+        allow(oystercard).to receive(:touch_out).and_return false
+        expect(oystercard.in_journey?).to eq true
+    end
 end
