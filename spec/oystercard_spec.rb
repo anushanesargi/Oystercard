@@ -13,7 +13,7 @@ describe Oystercard do
 
     it 'raise an error when the maximum balance is exceeded, max_bal = 90' do
         oystercard = Oystercard.new
-        expect { oystercard.top_up(81) }.to raise_error "Maximum balance exceeded by 1"
+        expect { oystercard.top_up(81) }.to raise_error "Maximum balance exceeded by 1.0"
     end
 
     it 'deducts the money from the balance' do
@@ -31,16 +31,15 @@ describe Oystercard do
         expect(oystercard.touch_out("yes")).to eq false
     end
 
-    # it 'returns true if in journey' do
-    #     oystercard = Oystercard.new
-    #     allow(oystercard).to receive(:touch_in).and_return true
-    #     allow(oystercard).to receive(:touch_out).and_return false
-    #     expect(oystercard.in_journey?).to eq true
-    # end
-
     it 'returns true if in journey' do
         oystercard = Oystercard.new
-        oystercard.touch_in("yes")
+        oystercard.touch_in
         expect(oystercard.in_journey?).to eq true
+    end
+
+    it 'raises an error when min bal of 1 is reached' do
+        oystercard = Oystercard.new
+        oystercard.deduct(9.2)
+        expect { oystercard.touch_in }.to raise_error 'Minimum balance of £1 required'
     end
 end
