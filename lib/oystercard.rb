@@ -6,7 +6,7 @@ class Oystercard
     
     def initialize
         @balance = 0.0
-        @entry_station
+        @entry_station = []
         @count = 0
     end
 
@@ -18,18 +18,15 @@ class Oystercard
     def touch_in(entry_station)
         @entry_station = entry_station
         minimum_balance?
-        @count += 1
-        true
     end
 
     def touch_out(charge = 2)
         deduct(charge)
-        @count -= 1
-        true
+        @entry_station = nil 
     end
 
     def in_journey?
-        @count.odd?
+        @entry_station != nil
     end
 
     private
