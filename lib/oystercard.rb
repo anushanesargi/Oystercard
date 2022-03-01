@@ -6,7 +6,7 @@ class Oystercard
     
     def initialize
         @balance = 0.0
-        @entry_station = []
+        @entry_station
         @count = 0
     end
 
@@ -27,6 +27,11 @@ class Oystercard
 
     def in_journey?
         @entry_station != nil
+    end
+
+    def journeys
+        journey_hash = {}
+        journey_hash.empty?
     end
 
     private

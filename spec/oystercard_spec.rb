@@ -18,17 +18,6 @@ describe Oystercard do
         expect { oystercard.top_up(91) }.to raise_error "Maximum balance exceeded by 1.0"
     end
 
-    # it 'returns true if touched in' do
-    #     oystercard = Oystercard.new
-    #     oystercard.top_up(10)
-    #     expect(oystercard.touch_in(chiswick_park_station)).to eq true
-    # end
-
-    # it 'returns true if touched out' do
-    #     oystercard = Oystercard.new
-    #     expect(oystercard.touch_out).to eq true
-    # end
-
     it 'returns true if in journey' do
         oystercard = Oystercard.new
         oystercard.top_up(10)
@@ -61,6 +50,12 @@ describe Oystercard do
         oystercard.touch_in(chiswick_park_station)
         oystercard.touch_out
         expect(oystercard.entry_station).to eq nil
+    end
+
+    it 'returns true is journeys is empty' do 
+        oystercard = Oystercard.new
+        oystercard.top_up(10)
+        expect(oystercard.journeys).to eq true
     end
 
 end
