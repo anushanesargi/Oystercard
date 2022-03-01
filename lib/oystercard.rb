@@ -5,20 +5,12 @@ class Oystercard
     attr_reader :balance
     
     def initialize
-        @balance = 10.0
+        @balance = 0.0
     end
 
     def top_up(top_up_amt)
         maximum_balance?(top_up_amt)
         @balance += top_up_amt
-    end
-    
-    # def balance
-    #     @balance
-    # end
-
-    def deduct(amt_to_deduct)
-        @balance -= amt_to_deduct
     end
 
     def touch_in(condition = "yes")
@@ -26,13 +18,19 @@ class Oystercard
         condition == "yes"
     end
 
-    def touch_out(condition = "no")
+    def touch_out(condition = "no", charge = 2)
+        deduct(charge)
         condition == "no"
-        deduct(2) if in_journey? == false
     end
 
     def in_journey?
         touch_in == true && touch_out == true
+    end
+
+    private
+
+    def deduct(amt_to_deduct)
+        @balance -= amt_to_deduct
     end
 
     def minimum_balance?
