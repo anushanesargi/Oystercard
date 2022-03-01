@@ -1,6 +1,8 @@
 require 'oystercard'
 
 describe Oystercard do
+    let(:chiswick_park_station) { double(:Station) }
+
     it 'has a balance of ten' do
         oystercard = Oystercard.new
         expect(oystercard.balance).to eq 0.0
@@ -19,30 +21,38 @@ describe Oystercard do
     it 'returns true if touched in' do
         oystercard = Oystercard.new
         oystercard.top_up(10)
-        expect(oystercard.touch_in).to eq true
+        expect(oystercard.touch_in(chiswick_park_station)).to eq true
     end
 
-    it 'returns false if touched out' do
+    it 'returns true if touched out' do
         oystercard = Oystercard.new
-        expect(oystercard.touch_out("yes")).to eq false
+        expect(oystercard.touch_out).to eq true
     end
 
     it 'returns true if in journey' do
         oystercard = Oystercard.new
         oystercard.top_up(10)
-        oystercard.touch_in
+        oystercard.touch_in(chiswick_park_station)
         expect(oystercard.in_journey?).to eq true
     end
 
     it 'raises an error when min bal of 1 is reached' do
         oystercard = Oystercard.new
-        expect { oystercard.touch_in }.to raise_error 'Minimum balance of £1 required'
+        expect { oystercard.touch_in(chiswick_park_station) }.to raise_error 'Minimum balance of £1 required'
     end
 
     it 'expect to charge £2 for the journey' do
         oystercard = Oystercard.new
         oystercard.top_up(10)
-        oystercard.touch_in
-        expect { oystercard.touch_out("yes") }.to change{ oystercard.balance }.by -2
+        oystercard.touch_in(chiswick_park_station)
+        expect { oystercard.touch_out }.to change{ oystercard.balance }.by -2
     end
+
+    it 'return the entry station' do
+        oystercard = Oystercard.new
+        oystercard.top_up(10)
+        oystercard.touch_in(chiswick_park_station)
+        expect(oystercard.entry_station).to eq chiswick_park_station
+    end
+
 end

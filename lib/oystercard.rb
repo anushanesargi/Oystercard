@@ -2,10 +2,12 @@ class Oystercard
     MAX_BAL = 90
     MIN_BAL = 1
 
-    attr_reader :balance
+    attr_reader :balance, :entry_station
     
     def initialize
         @balance = 0.0
+        @entry_station
+        @count = 0
     end
 
     def top_up(top_up_amt)
@@ -13,18 +15,21 @@ class Oystercard
         @balance += top_up_amt
     end
 
-    def touch_in(condition = "yes")
+    def touch_in(entry_station)
+        @entry_station = entry_station
         minimum_balance?
-        condition == "yes"
+        @count += 1
+        true
     end
 
-    def touch_out(condition = "no", charge = 2)
+    def touch_out(charge = 2)
         deduct(charge)
-        condition == "no"
+        @count -= 1
+        true
     end
 
     def in_journey?
-        touch_in == true && touch_out == true
+        @count.odd?
     end
 
     private
