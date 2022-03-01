@@ -2,12 +2,14 @@ class Oystercard
     MAX_BAL = 90
     MIN_BAL = 1
 
-    attr_reader :balance, :entry_station
+    attr_reader :balance, :entry_station, :exit_station, :journey_hash
     
     def initialize
         @balance = 0.0
         @entry_station
+        @exit_station
         @count = 0
+        @journey_hash = {}
     end
 
     def top_up(top_up_amt)
@@ -20,8 +22,10 @@ class Oystercard
         minimum_balance?
     end
 
-    def touch_out(charge = 2)
+    def touch_out(exit_station, charge = 2)
         deduct(charge)
+        @exit_station = exit_station
+        journeys
         @entry_station = nil 
     end
 
@@ -30,15 +34,17 @@ class Oystercard
     end
 
     def journeys
-        journey_hash = {}
-        journey_hash.empty?
+        journey1 = { @entry_station => @exit_station }
+        @journey_hash.merge!(journey1)
     end
-
+    
     private
 
     def deduct(amt_to_deduct)
         @balance -= amt_to_deduct
     end
+
+    
 
     def minimum_balance?
         fail "Minimum balance of £1 required" if @balance < MIN_BAL
