@@ -42,4 +42,10 @@ describe Oystercard do
         oystercard.deduct(9.2)
         expect { oystercard.touch_in }.to raise_error 'Minimum balance of £1 required'
     end
+
+    it 'expect to charge £2 for the journey' do
+        oystercard = Oystercard.new
+        oystercard.touch_in
+        expect { oystercard.touch_out("yes") }.to change{oystercard.balance}.by 2
+    end
 end

@@ -12,6 +12,10 @@ class Oystercard
         maximum_balance?(top_up_amt)
         @balance += top_up_amt
     end
+    
+    # def balance
+    #     @balance
+    # end
 
     def deduct(amt_to_deduct)
         @balance -= amt_to_deduct
@@ -24,6 +28,7 @@ class Oystercard
 
     def touch_out(condition = "no")
         condition == "no"
+        deduct(2) if in_journey? == false
     end
 
     def in_journey?
