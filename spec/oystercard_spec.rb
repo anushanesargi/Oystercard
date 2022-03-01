@@ -61,7 +61,7 @@ describe Oystercard do
         expect(oystercard.journey_hash.empty?).to eq true
     end
 
-    it 'returns true is journeys is empty' do 
+    it 'returns true if journeys is empty' do 
         oystercard = Oystercard.new
         oystercard.top_up(10)
         oystercard.touch_in(chiswick_park_station)
