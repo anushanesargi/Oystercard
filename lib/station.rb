@@ -16,14 +16,14 @@ class Station
         @zone_num = 0
     end
 
-    def name
-        @station_name
-    end
-
     def zone
         ZONE_HASH.each do |key, val|
-            @zone_num = key if val.include?(@station_name[0].downcase)
-            break
+            if val.include?(@station_name[0].downcase)
+                @zone_num = key 
+                break
+            else
+                next
+            end
         end
         return @zone_num
     end
