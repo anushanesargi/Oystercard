@@ -64,6 +64,20 @@ describe Journey do
             expect(journey.journey_hash).to eq station1 => station2, station3 => station4
         end
 
+        it "should return the minimum fare if there is no touch out" do
+            journey = Journey.new
+            station1 = Station.new("Chiswick Park Station")
+            journey.touch_in(station1)
+            expect(journey.fare).to eq 6
+        end
+
+        it "should return the minimum fare if there is no touch in" do
+            journey = Journey.new
+            station1 = Station.new("Chiswick Park Station")
+            journey.touch_out(station1)
+            expect(journey.fare).to eq 6
+        end
+
     end
 
 end

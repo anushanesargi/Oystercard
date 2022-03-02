@@ -13,6 +13,8 @@ class Journey
 
     def touch_in(entry_station)
         @entry_station = entry_station
+        journeys
+        return @entry_station
     end
 
     def touch_out(exit_station)
@@ -24,7 +26,11 @@ class Journey
 
     def fare
         @journey_hash.each do |key, val|
-            @total_fare << ((key.zone - val.zone).abs + 3)
+            if key == nil || val == nil
+                @total_fare << 6
+            else
+                @total_fare << ((key.zone - val.zone).abs + 3)
+            end
         end
         return @total_fare.sum
     end
