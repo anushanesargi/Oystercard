@@ -22,12 +22,12 @@ describe JourneyLog do
         end
     end
 
-    # describe '.journeys' do
-    #     it "should return journeys" do
-    #         journey_log = JourneyLog.new(journey)
-    #         journey_log.start(station1)
-    #         journey_log.finish(station2)
-    #         expect(journey_log.journeys).to eq station1 => station2
-    #     end
-    # end
+    describe '.journeys' do
+        it "should return journeys" do
+            journey_log = JourneyLog.new(journey)
+            journey_log.start(station1)
+            journey_log.finish(station2)
+            expect(journey_log.journeys).to eq [station1 => station2]
+        end
+    end
 end

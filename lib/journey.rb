@@ -14,13 +14,14 @@ class Journey
 
     def touch_in(entry_station)
         @card.minimum_balance?
+        @current_journey = { entry_station => nil}
         touch_out(nil) if in_journey?
         @entry_station = entry_station
     end
 
     def touch_out(exit_station)
         @exit_station = exit_station
-        journeys
+        @current_journey = { @entry_station => @exit_station }
         @entry_station = nil
         @card.deduct(fare)
     end
@@ -30,7 +31,6 @@ class Journey
         @current_journey.each do |key, val|
             if key == nil || val == nil
                 total_fare = 6
-                break
             else
                 total_fare = (key.zone - val.zone + 1)
             end
@@ -42,13 +42,8 @@ class Journey
         return @entry_station != nil
     end
 
-    # def journeys
-    #     if exit_station != nil
-    #         @current_journey = { @entry_station => @exit_station }
-    # end
-
     def journeys
-        @current_journey = { @entry_station => @exit_station }
+        @current_journey
     end
 
 
