@@ -15,7 +15,7 @@ class Journey
 
     def touch_in(entry_station)
         @card.minimum_balance?
-        touch_out(nil, @card) if in_journey?
+        touch_out(nil) if in_journey?
         @entry_station = entry_station
         
     end
@@ -46,11 +46,6 @@ class Journey
 
     def journeys
         @current_journey = { @entry_station => @exit_station }
-        @journey_log << @current_journey
-        puts @journey_log
-        puts "--------"
+        @journey_log << @current_journey 
     end
-
-
-
 end
