@@ -3,56 +3,53 @@ require_relative 'oystercard'
 
 class Journey
 
-    attr_reader :entry_station, :journey_log
+    attr_reader :entry_station, :exit_station
 
-    def initialize
+    def initialize(oystercard)
+        @card = oystercard
         @entry_station
         @exit_station
-        @journey_log = []
-        @total_fare = []
+        @current_journey = { }
     end
 
-    def touch_in(entry_station, card)
-        card.minimum_balance?
-        if @entry_station != nil
-            
-        end
+    def touch_in(entry_station)
+        @card.minimum_balance?
+        touch_out(nil) if in_journey?
         @entry_station = entry_station
-        # journeys
-        return @entry_station
     end
 
-    def touch_out(exit_station, card)
+    def touch_out(exit_station)
         @exit_station = exit_station
         journeys
-        card.deduct(fare)
         @entry_station = nil
-        return @exit_station
+        @card.deduct(fare)
     end
 
     def fare
+        total_fare = 0
         @current_journey.each do |key, val|
             if key == nil || val == nil
-                @total_fare << 6
+                total_fare = 6
+                break
             else
-                @total_fare << ((key.zone - val.zone).abs + 3)
+                total_fare = (key.zone - val.zone + 1)
             end
         end
-
-        return @total_fare.sum
+      return total_fare
     end
 
     def in_journey?
-        @entry_station != nil
+        return @entry_station != nil
     end
+
+    # def journeys
+    #     if exit_station != nil
+    #         @current_journey = { @entry_station => @exit_station }
+    # end
 
     def journeys
         @current_journey = { @entry_station => @exit_station }
-        @journey_log << @current_journey
-        puts @journey_log
-        puts "--------"
     end
-
 
 
 end
